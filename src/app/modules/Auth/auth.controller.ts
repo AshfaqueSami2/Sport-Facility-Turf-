@@ -5,12 +5,13 @@ import { AuthServices } from './auth.service';
 import { Request, Response } from 'express';
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
-  const result = await AuthServices.loginUser(req.body,);
+  const {user,accessToken} = await AuthServices.loginUser(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User is logged in successfully',
-    data: result,
+    token: accessToken,
+    data: user,
   });
 });
 

@@ -10,5 +10,9 @@ export interface TUser {
   address: string;
 }
 export interface UserModel extends Model<TUser> {
-    isUserExistsByEmail(email: string): Promise<TUser | null>;
+  isUserExistsByEmail(email: string): Promise<TUser | null>;
+  isPasswordMatched(
+    plainTextPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean>;
 }
