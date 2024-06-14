@@ -9,12 +9,13 @@ import {
   combineDateAndTime,
 } from '../../utils/calculatePayableAmount';
 
+//creating booking and some validation
 const createBookingIntoDB = async (bookingData: Partial<TBooking>) => {
   const { facility, date, startTime, endTime } = bookingData;
 
-  if (!facility || !date || !startTime || !endTime ) {
+  if (!facility || !date || !startTime || !endTime) {
     throw new AppError(
-      httpStatus.NOT_FOUND,
+      httpStatus.BAD_REQUEST,
       'Facility, date, startTime, endTime, and user are required',
     );
   }
@@ -33,7 +34,6 @@ const createBookingIntoDB = async (bookingData: Partial<TBooking>) => {
     facilityData.pricePerHour,
   );
 
-  
   const newBooking = new Booking({
     ...bookingData,
     startTime,
@@ -45,6 +45,24 @@ const createBookingIntoDB = async (bookingData: Partial<TBooking>) => {
   return result;
 };
 
+//get all bokkings (Admin)
+const getAllBookingsFromDB = async () => {
+  const result = await Booking.find().populate('facility').populate('user');
+  return result;
+};
+
+//delete a booking (User)
+const deleteBookingFromDB = async (id: string): Promise<TBooking | null> => {
+  const result = await Booking.findByIdAndUpdate(
+    id,
+    { isBooked: 'canceled' },
+    { new: true }
+  ).populate('facility');
+  return result;
+};
+
 export const BookingServices = {
   createBookingIntoDB,
+  getAllBookingsFromDB,
+  deleteBookingFromDB
 };

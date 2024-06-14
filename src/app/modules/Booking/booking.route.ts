@@ -14,4 +14,15 @@ router.post(
   BookingControllers.createBooking,
 );
 
-export const BookingsRoutes = router
+router.get(
+  '/api/bookings',
+  auth(USER_ROLE.admin),
+  BookingControllers.getAllBookings,
+);
+
+router.delete(
+  '/api/bookings/:id',
+  auth(USER_ROLE.user),
+  BookingControllers.deleteBooking,
+);
+export const BookingsRoutes = router;

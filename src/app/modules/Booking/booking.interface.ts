@@ -9,3 +9,4 @@ export interface TBooking {
   payableAmount: number;
   isBooked: 'confirmed' | 'unconfirmed' | 'canceled';
 }
+

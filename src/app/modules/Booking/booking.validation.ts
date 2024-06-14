@@ -5,6 +5,7 @@ const createBookingValidationSchema = z.object({
     date: z.string(),
     startTime: z.string(),
     endTime: z.string(),
+    // user: z.string().optional(),
     facility: z.string(),
     isBooked: z
       .enum(['confirmed', 'unconfirmed', 'canceled'])
