@@ -1,9 +1,14 @@
- import express from 'express'
+import express from 'express';
 import { UserControllers } from './user.controller';
+import validateRequest from '../../../middlewares/validateRequest';
+import { UserValidation } from './user.validation';
 
- const router = express.Router();
+const router = express.Router();
 
- router.post('/api/auth/signup',UserControllers.createUser)
+router.post(
+  '/api/auth/signup',
+  validateRequest(UserValidation.userValidationSchema),
+  UserControllers.createUser,
+);
 
-
- export const UserRoutes = router
+export const UserRoutes = router;
