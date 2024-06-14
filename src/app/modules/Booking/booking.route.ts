@@ -5,6 +5,7 @@ import validateRequest from '../../../middlewares/validateRequest';
 import { BookingValidation } from './booking.validation';
 import { BookingControllers } from './booking.controller';
 
+
 const router = express.Router();
 
 router.post(
@@ -14,11 +15,17 @@ router.post(
   BookingControllers.createBooking,
 );
 
+router.get('/api/bookings/user',auth(USER_ROLE.user),BookingControllers.getBookingsByUser)
+
 router.get(
   '/api/bookings',
   auth(USER_ROLE.admin),
   BookingControllers.getAllBookings,
 );
+
+router.get('/api/check-availability',BookingControllers.checkAvailability);
+
+
 
 router.delete(
   '/api/bookings/:id',

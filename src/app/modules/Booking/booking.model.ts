@@ -14,11 +14,11 @@ const bookingSchema = new Schema<TBooking>({
     type: String ,
     required: true,
   },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
+  // user: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User',
+  //   required: true,
+  // },
   facility: {
     type: Schema.Types.ObjectId,
     ref: 'Facility',

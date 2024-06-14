@@ -5,6 +5,7 @@ import { AuthRoutes } from './app/modules/Auth/auth.route';
 import globalErrorHandler from './middlewares/globalErrorhandler';
 import { FacilityRoutes } from './app/modules/Facility/facility.route';
 import { BookingsRoutes } from './app/modules/Booking/booking.route';
+import notFound from './middlewares/notFound';
 
 const app: Application = express();
 
@@ -17,6 +18,10 @@ app.use('/', UserRoutes);
 app.use('/', AuthRoutes);
 app.use('/', FacilityRoutes);
 app.use('/',BookingsRoutes);
+
+
+//not found
+app.use(notFound);
 
 const getAController = (req: Request, res: Response) => {
   const a = 10;

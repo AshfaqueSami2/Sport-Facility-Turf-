@@ -20,6 +20,9 @@ const userSchema = new Schema<TUser, UserModel>(
       type: String,
       required: true,
     },
+    id:{
+      type:String,
+    },
     role: {
       type: String,
       required: true,

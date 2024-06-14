@@ -4,7 +4,7 @@ export interface TBooking {
   date: string;
   startTime: string;
   endTime: string;
-  user: Types.ObjectId;
+   user1:Types.ObjectId;
   facility: Types.ObjectId;
   payableAmount: number;
   isBooked: 'confirmed' | 'unconfirmed' | 'canceled';

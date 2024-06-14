@@ -25,8 +25,20 @@ const updateFacilityIntoDB = async (
   return result;
 };
 
+
+//softDelete Facility
+const deleteFacilityFromDB = async (id: string): Promise<TFacility | null> => {
+  const result = await Facility.findByIdAndUpdate(
+    id,
+    {isDeleted:true},
+    { new: true }
+  );
+  return result;
+};
+
 export const FacilityServices = {
   createFacilityIntoDB,
   getAllFacilitiesFromDB,
   updateFacilityIntoDB,
+  deleteFacilityFromDB,
 };

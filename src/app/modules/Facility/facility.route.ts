@@ -23,4 +23,6 @@ router.put(
 
 router.get('/api/facility', FacilityController.getAllFacilites);
 
+router.delete('/api/facility/:id',auth(USER_ROLE.admin),FacilityController.deleteFacility)
+
 export const FacilityRoutes = router;

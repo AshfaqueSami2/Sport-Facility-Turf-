@@ -40,8 +40,22 @@ const updateFacility = catchAsync(async (req, res) => {
   });
 });
 
+//soft delete facility
+const deleteFacility= catchAsync(async(req,res)=>{
+  const {id} = req.params
+  const result = await FacilityServices.deleteFacilityFromDB(id,)
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Booking cancelled successfully',
+    data: result,
+  });
+  return result
+})
+
 export const FacilityController = {
   createFacility,
   getAllFacilites,
   updateFacility,
+  deleteFacility
 };
