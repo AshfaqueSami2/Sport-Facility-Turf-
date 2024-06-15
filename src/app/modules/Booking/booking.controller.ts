@@ -9,11 +9,12 @@ import { Booking } from './booking.model';
 
 const createBooking = catchAsync(async (req: Request, res: Response) => {
   
-  const bookingData =  req.body;
+  const bookingData = req.body;
   bookingData.user =req.user.id
 
   const result = await BookingServices.createBookingIntoDB(bookingData);
   const response = {
+    _id:result._id,
     facility: result.facility,
     date: result.date,
     startTime: result.startTime,
@@ -31,20 +32,22 @@ const createBooking = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//get all bookings
+//get all bookings admin
 const getAllBookings = catchAsync(async (req, res) => {
+  
   const result = await BookingServices.getAllBookingsFromDB();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Bookings retrieved successfully',
     data: result,
+
   });
 });
 
 //get bookings by user
 const getBookingsByUser = catchAsync(async (req, res) => {
-  const userId = req.body?._id;
+  const userId = req.user.id;
 
   const result = await BookingServices.getBookingsByUserFromDB(userId);
 

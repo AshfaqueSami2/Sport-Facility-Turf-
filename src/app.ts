@@ -7,6 +7,7 @@ import { FacilityRoutes } from './app/modules/Facility/facility.route';
 import { BookingsRoutes } from './app/modules/Booking/booking.route';
 import notFound from './middlewares/notFound';
 import cookieParser from 'cookie-parser';
+import noDataFound from './middlewares/noDataFound';
 
 const app: Application = express();
 
@@ -24,6 +25,9 @@ app.use('/',BookingsRoutes);
 
 //not found
 app.use(notFound);
+
+//not data found
+app.use(noDataFound)
 
 const getAController = (req: Request, res: Response) => {
   const a = 10;

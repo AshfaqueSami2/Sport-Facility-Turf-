@@ -20,9 +20,6 @@ const userSchema = new Schema<TUser, UserModel>(
       type: String,
       required: true,
     },
-    id: {
-      type: String,
-    },
     role: {
       type: String,
       required: true,
@@ -37,7 +34,44 @@ const userSchema = new Schema<TUser, UserModel>(
   },
   {
     timestamps: true,
-  },
+    toJSON: {
+      transform: function (doc, ret) {
+        delete ret.password;
+        delete ret.createdAt;
+        delete ret.updatedAt;
+        delete ret.__v;
+
+        // Ensure _id is the first field
+        return {
+          _id: ret._id,
+          name: ret.name,
+          email: ret.email,
+          role: ret.role,
+          phone: ret.phone,
+          address: ret.address,
+        };
+      },
+    },
+    toObject: {
+      transform: function (doc, ret) {
+        delete ret.password;
+        delete ret.createdAt;
+        delete ret.updatedAt;
+        delete ret.__v;
+
+        // Ensure _id is the first field
+        return {
+          _id: ret._id,
+          name: ret.name,
+          email: ret.email,
+          role: ret.role,
+          phone: ret.phone,
+          address: ret.address,
+        };
+      },
+    },
+    
+  }
 );
 
 userSchema.pre('save', async function (next) {

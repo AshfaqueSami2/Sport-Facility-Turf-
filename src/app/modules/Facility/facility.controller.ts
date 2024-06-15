@@ -35,7 +35,7 @@ const updateFacility = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Facility is updated succesfully',
+    message: 'Facility updated succesfully',
     data: result,
   });
 });
@@ -43,11 +43,11 @@ const updateFacility = catchAsync(async (req, res) => {
 //soft delete facility
 const deleteFacility= catchAsync(async(req,res)=>{
   const {id} = req.params
-  const result = await FacilityServices.deleteFacilityFromDB(id,)
+  const result = await FacilityServices.deleteFacilityFromDB(id)
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Booking cancelled successfully',
+    message: 'Facility deleted successfully',
     data: result,
   });
   return result

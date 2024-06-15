@@ -73,7 +73,7 @@ const getAllBookingsFromDB = async () => {
 
 //get booking by user
 const getBookingsByUserFromDB = async (userId: string): Promise<TBooking[]> => {
-  const result = await Booking.find({ user: userId }).populate('facility');
+  const result = await Booking.find({ user: userId }).populate('facility').populate('user');
   return result;
 };
 
@@ -83,7 +83,7 @@ const deleteBookingFromDB = async (id: string): Promise<TBooking | null> => {
     id,
     { isBooked: 'canceled' },
     { new: true },
-  ).populate('facility');
+  ).populate('facility').populate('user');
   return result;
 };
 

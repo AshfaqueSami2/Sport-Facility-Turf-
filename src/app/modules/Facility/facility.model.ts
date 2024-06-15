@@ -7,6 +7,7 @@ const facilitySchema = new Schema<TFacility>(
       type: String,
       required: true,
       sort: true,
+      unique: true,
     },
     description: {
       type: String,
@@ -25,6 +26,32 @@ const facilitySchema = new Schema<TFacility>(
   },
   {
     timestamps: true,
+    toJSON: {
+      transform: function (doc, ret) {
+        delete ret.password;
+        delete ret.createdAt;
+        delete ret.updatedAt;
+        delete ret.__v;
+
+        // Ensure _id is the first field
+        return {
+          _id: ret._id,
+          name: ret.name,
+          description: ret.description,
+          pricePerHour: ret.pricePerHour,
+          location: ret.location,
+          isDeleted: ret.isDeleted,
+        };
+      },
+    },
+    toObject: {
+      transform: function (doc, ret) {
+        delete ret.password;
+        delete ret.createdAt;
+        delete ret.updatedAt;
+        delete ret.__v;
+      },
+    },
   },
 );
 
