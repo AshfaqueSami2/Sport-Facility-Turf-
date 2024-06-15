@@ -3,7 +3,6 @@ import AppError from '../../errors/AppError';
 import { User } from '../User/user.model';
 import { TLoginUser } from './auth.interface';
 import config from '../../config';
-
 import jwt from 'jsonwebtoken';
 
 
@@ -22,18 +21,21 @@ const loginUser = async (payload: TLoginUser) => {
   }
 
   const jwtPayload = {
+    id:user.id,
     userEmail: user.email,
     role: user.role,
   };
 
-  //create toke and sent to the client
+  // create toke and sent to the client
   const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
-    expiresIn: '10d',
+    expiresIn: '30d',
   });
  
+  
+
   const result = {
     user: {
-      _id: user._id,
+      _id: user.id,
       name: user.name,
       email: user.email,
       role: user.role,

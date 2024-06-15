@@ -10,12 +10,15 @@ import {
 } from '../../utils/calculatePayableAmount';
 
 
+
+
+
 //creating booking and some validation user
 
 const createBookingIntoDB = async (bookingData: Partial<TBooking>) => {
-  const { facility, date, startTime, endTime} = bookingData;
+  const { facility, date, startTime, endTime,user} = bookingData;
 
-  if (!facility || !date || !startTime || !endTime ) {
+  if (!facility || !date || !startTime || !endTime || !user ) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
       'Facility, date, startTime, endTime, and user are required',
@@ -64,7 +67,7 @@ const createBookingIntoDB = async (bookingData: Partial<TBooking>) => {
 
 //get all bookings (Admin)
 const getAllBookingsFromDB = async () => {
-  const result = await Booking.find().populate('facility');
+  const result = await Booking.find().populate('facility').populate('user');
   return result;
 };
 

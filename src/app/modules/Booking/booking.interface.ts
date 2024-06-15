@@ -1,12 +1,12 @@
 import { Types } from 'mongoose';
 
 export interface TBooking {
+  id: string;
   date: string;
   startTime: string;
   endTime: string;
-   user1:Types.ObjectId;
+  user: Types.ObjectId;
   facility: Types.ObjectId;
   payableAmount: number;
   isBooked: 'confirmed' | 'unconfirmed' | 'canceled';
 }
-

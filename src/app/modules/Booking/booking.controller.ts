@@ -5,9 +5,12 @@ import { BookingServices } from './booking.service';
 import { Response, Request } from 'express';
 import { generateAvailableTimeSlots } from '../../utils/timeAvailability';
 import { Booking } from './booking.model';
+// import { TUser } from '../User/user.interface';
 
 const createBooking = catchAsync(async (req: Request, res: Response) => {
-  const bookingData = req.body;
+  
+  const bookingData =  req.body;
+  bookingData.user =req.user.id
 
   const result = await BookingServices.createBookingIntoDB(bookingData);
   const response = {
@@ -17,6 +20,7 @@ const createBooking = catchAsync(async (req: Request, res: Response) => {
     endTime: result.endTime,
     payableAmount: result.payableAmount,
     isBooked: result.isBooked,
+    user:result.user
   };
 
   sendResponse(res, {
@@ -96,8 +100,6 @@ const checkAvailability = catchAsync(async (req: Request, res: Response) => {
     data: availableSlots,
   });
 });
-
-
 
 export const BookingControllers = {
   createBooking,

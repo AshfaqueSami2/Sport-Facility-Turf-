@@ -6,12 +6,14 @@ import globalErrorHandler from './middlewares/globalErrorhandler';
 import { FacilityRoutes } from './app/modules/Facility/facility.route';
 import { BookingsRoutes } from './app/modules/Booking/booking.route';
 import notFound from './middlewares/notFound';
+import cookieParser from 'cookie-parser';
 
 const app: Application = express();
 
 //parser
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser())
 
 //application routes
 app.use('/', UserRoutes);
