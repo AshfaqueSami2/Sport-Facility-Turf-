@@ -23,6 +23,9 @@ const facilitySchema = new Schema<TFacility>(
       type: Boolean,
       default: false,
     },
+    image: {
+      type: String, // Store the image URL
+    },
   },
   {
     timestamps: true,
@@ -41,6 +44,7 @@ const facilitySchema = new Schema<TFacility>(
           pricePerHour: ret.pricePerHour,
           location: ret.location,
           isDeleted: ret.isDeleted,
+          image: ret.image,
         };
       },
     },

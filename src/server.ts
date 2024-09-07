@@ -7,7 +7,7 @@ async function main() {
     await mongoose.connect(config.database_url as string);
 
     app.listen(config.port, () => { // Change port number to 8080
-      console.log(`app is listening on port 5000`); // Update log message accordingly
+      console.log(`app is listening on port on 5000`); // Update log message accordingly
     });
   } catch (err) {
     console.log(err);

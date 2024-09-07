@@ -5,7 +5,7 @@ const userValidationSchema = z.object({
     name: z.string(),
     email: z.string(),
     password: z.string(),
-    role: z.string(),
+    role: z.string().optional(),
     phone: z.string().optional(),
     address: z.string().optional(),
   }),

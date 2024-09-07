@@ -72,20 +72,27 @@ const deleteBooking = catchAsync(async (req, res) => {
   return result;
 });
 
-//check availability
+
+
+
 
 const checkAvailability = catchAsync(async (req: Request, res: Response) => {
-  const { date } = req.query;
+  const { date, facility } = req.query;
+
+  if (!facility) {
+    return res.status(400).json({ message: "Facility ID is required" });
+  }
+
   const checkDate = date ? new Date(date as string) : new Date();
   const checkDateString = checkDate.toISOString().split('T')[0]; // Format: YYYY-MM-DD
 
-  // Retrieve bookings for the specified date
-  const bookings = await Booking.find({ date: checkDateString });
+  // Retrieve bookings for the specified date and facility
+  const bookings = await Booking.find({ date: checkDateString, facility });
 
   // Define total available time slots for the day
-  const totalSlots = generateAvailableTimeSlots('08:00', '16:00', 1);
+  const totalSlots = generateAvailableTimeSlots('08:00', '16:00', 1); // Assuming 1-hour slots from 08:00 to 16:00
 
-  // Filter out slots that are already booked
+  // Filter out slots that are already booked for the specified facility
   const availableSlots = totalSlots.filter((slot) => {
     return !bookings.some((booking) => {
       return (
@@ -96,13 +103,15 @@ const checkAvailability = catchAsync(async (req: Request, res: Response) => {
     });
   });
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Availability checked successfully',
-    data: availableSlots,
-  });
+  if (availableSlots.length === 0) {
+    return res.status(404).json({ message: "No available slots for the selected date and facility." });
+  }
+
+  res.status(200).json({ availableSlots });
 });
+
+export default checkAvailability;
+
 
 export const BookingControllers = {
   createBooking,
@@ -111,3 +120,5 @@ export const BookingControllers = {
   getBookingsByUser,
   checkAvailability,
 };
+
+

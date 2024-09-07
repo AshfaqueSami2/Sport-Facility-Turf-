@@ -27,12 +27,19 @@ const updateFacilityIntoDB = async (
 
 
 //softDelete Facility
+// const deleteFacilityFromDB = async (id: string): Promise<TFacility | null> => {
+//   const result = await Facility.findByIdAndUpdate(
+//     id,
+//     {isDeleted:true},
+//     { new: true }
+//   );
+//   return result;
+// };
+
+
+//hardDelete
 const deleteFacilityFromDB = async (id: string): Promise<TFacility | null> => {
-  const result = await Facility.findByIdAndUpdate(
-    id,
-    {isDeleted:true},
-    { new: true }
-  );
+  const result = await Facility.findByIdAndDelete(id);
   return result;
 };
 

@@ -79,11 +79,7 @@ const getBookingsByUserFromDB = async (userId: string): Promise<TBooking[]> => {
 
 //delete a booking (User)
 const deleteBookingFromDB = async (id: string): Promise<TBooking | null> => {
-  const result = await Booking.findByIdAndUpdate(
-    id,
-    { isBooked: 'canceled' },
-    { new: true },
-  ).populate('facility').populate('user');
+  const result = await Booking.findByIdAndDelete(id).populate('facility').populate('user');
   return result;
 };
 
